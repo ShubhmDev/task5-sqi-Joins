@@ -55,3 +55,25 @@ GROUP BY c.CustomerID, c.CustomerName
 HAVING COUNT(o.OrderID) > 1
 ORDER BY TotalOrders DESC;
 
+--All customers and all orders — whether matched or unmatched.
+-- FULL OUTER JOIN via UNION
+SELECT 
+    c.CustomerID,
+    c.CustomerName,
+    o.OrderID,
+    o.OrderDate,
+    o.Amount
+FROM Customers c
+LEFT JOIN Orders o ON c.CustomerID = o.CustomerID
+
+UNION
+
+SELECT 
+    c.CustomerID,
+    c.CustomerName,
+    o.OrderID,
+    o.OrderDate,
+    o.Amount
+FROM Customers c
+RIGHT JOIN Orders o ON c.CustomerID = o.CustomerID;
+
